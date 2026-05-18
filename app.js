@@ -1,16 +1,19 @@
-// Globals - no window
+const os = require("os");
+const { cpuUsage } = require("process");
+const { use } = require("react");
 
-//_dirname - path to current directory
-//__filename - filename
-//require - function to use modules (commonJs)
-//module - info about current module (file)
-//process - info about env where the program is being executed
+//info about current user
+const user = os.userInfo();
+console.log(user);
 
-import { sayHi } from "./5-utils.js";
-import { secret } from "./4-names.js";
-import { salem } from "./4-names.js";
-import { john } from "./4-names.js";
+//method returns the system uptimr in minute
+console.log(`The system uptime is ${os.uptime() / 60}`);
 
-sayHi(secret);
-sayHi(salem);
-sayHi(john);
+const currentOS = {
+  name: os.type(),
+  release: os.release(),
+  totalMem: os.totalmem() / 1000000000,
+  freeMeme: os.freemem() / 1000000000,
+};
+
+console.log(currentOS);
