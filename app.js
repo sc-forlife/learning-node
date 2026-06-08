@@ -1,32 +1,13 @@
-// npm - global command, comes with node
-// npm --version
+const EventEmitter = require("events");
 
-// local dependency - use it only in this particular project
-//npm i <packageName>
+const customEmitter = new EventEmitter();
 
-//global dependency - use it in any project
-// npm install -g <packageName>
-// sudo npm install -g <packageName> (mac)
+customEmitter.on("response", (name, id) => {
+  console.log(`Data received ${name} , ${id}`);
+});
 
-//package.json - manifest file (stores important info about project/package)
-//manual approach (create package.json in the root, create properties etc)
-//npm init (step by step), press enter to skip
-//npm init -y (everrything default)
+customEmitter.on("response", () => {
+  console.log(`some other logic here`);
+});
 
-const { readFile } = require("fs");
-
-const getText = (path) => {
-  return new Promise((resolve, reject) => {
-    readFile(path, "utf8", (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
-  });
-};
-
-getText("./content/first.txt")
-  .then((result) => console.log(result))
-  .catch((err) => console.log(err));
+customEmitter.emit(`response`, "john", 34);
