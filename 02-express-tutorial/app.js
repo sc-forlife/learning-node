@@ -1,25 +1,17 @@
-const http = require("http");
-const { readFileSync } = require("fs");
+const express = require("express");
+const app = express();
+const people = require("./routes/people");
+const auth = require("./routes/auth");
 
-//get all files
-const homePage = readFileSync("./index.html");
+//static assets
+app.use(express.static("./methods-public"));
+//parse form data
+app.use(express.urlencoded({ extended: false }));
+//parse json
+app.use(express.json());
+app.use("/api/people", people);
+app.use("/login", auth);
 
-const server = http.createServer((req, res) => {
-  const url = req.url;
-
-  if (url === "/") {
-    res.writeHead(200, { "content-type": "text/html" });
-    res.write("<h1>Home Page</h1>");
-    res.end();
-  } else if (url === "/about") {
-    res.writeHead(200, { "content-type": "text/html" });
-    res.write("<h1>About Page</h1>");
-    res.end();
-  } else {
-    res.writeHead(404, { "content-type": "text/html" });
-    res.write("<h1>Page not Found</h1>");
-    res.end();
-  }
+app.listen(5000, () => {
+  console.log("Server is listening on port 5000");
 });
-
-server.listen(5000);
