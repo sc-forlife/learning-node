@@ -1,4 +1,4 @@
-import { Task } from "../models/task";
+import { Task } from "../models/task.js";
 
 const getAllTasks = (req, res) => {
   res.send("get all tasks");
@@ -6,7 +6,7 @@ const getAllTasks = (req, res) => {
 
 const createTask = async (req, res) => {
   const task = await Task.create(req.body);
-  res.status(201).json(req.body);
+  res.status(201).json({ task });
 };
 
 const getTask = (req, res) => {
