@@ -2,6 +2,7 @@ import express from "express";
 import tasks from "./routes/tasks.js";
 import { connectDB } from "./db/connect.js";
 import dotenv from "dotenv";
+import { notFound } from "./middleware/not-found.js";
 dotenv.config();
 
 const app = express();
@@ -14,6 +15,8 @@ app.use(express.json());
 //routes
 
 app.use("/api/v1/tasks", tasks);
+
+app.use(notFound);
 
 //app.get('/api/v1/tasks')        - get all the tasks
 //app.post('/api/v1/tasks')       - create a new task
